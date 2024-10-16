@@ -54,10 +54,10 @@
 require_relative "methods"
 require_relative "scraper"
 
-gift_list = {
-  "car" => false,
-  "book" => true
-}
+# path to the csv file
+filepath = "gifts.csv"
+
+gift_list = load_csv(filepath)
 
 # Welcome the user
 puts "****🎁****" * 3
@@ -87,6 +87,8 @@ until action == "quit"
     gift_list[gift] = false
     # Display a message that the gift was added
     puts "#{gift.capitalize} was added."
+    # call save csv to store our current gift_list status
+    save_csv(filepath, gift_list)
   when "delete"
     # Display the list
     display_list(gift_list)
@@ -102,6 +104,8 @@ until action == "quit"
     gift_list.delete(gift)
     # Let the user know we deleted the gift
     puts "#{gift.capitalize} was deleted."
+    # call save csv to store our current gift_list status
+    save_csv(filepath, gift_list)
     when "mark"
       # Display list
       display_list(gift_list)
@@ -120,6 +124,8 @@ until action == "quit"
       gift_list[gift] = !gift_list[gift]
       # Tell the user we marked the item
       puts "#{gift.capitalize} was updated."
+      # call save csv to store our current gift_list status
+      save_csv(filepath, gift_list)
   when "idea"
     # Ask what the user want to look for on Letsy
     puts "What do you want to search for on Letsy?"
@@ -139,6 +145,8 @@ until action == "quit"
     gift_list[gift] = false
     # Tell the user the gift was imported
     puts "#{gift.capitalize} was imported to your gift list"
+    # call save csv to store our current gift_list status
+    save_csv(filepath, gift_list)
   when "quit"
     puts "Goodbye"
   else
