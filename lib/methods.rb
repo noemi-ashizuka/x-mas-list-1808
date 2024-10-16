@@ -26,11 +26,15 @@ def load_csv(filepath)
   gift_list
 end
 
+# every time our gift_list hash is modified, we need to store the current gifts in the csv file
 def save_csv(filepath, gift_list)
+  # opens csv file to write on it (passing some option for formatting)
   CSV.open(filepath, 'wb', col_sep: ',', force_quotes: true, quote_char: '"') do |csv|
-    # We had headers to the CSV
+    # We need headers in the CSV
     csv << ['name', 'purchased']
+    # iterate over our gift_list hash
     gift_list.each do |name, purchased|
+      # put each gift in the csv as an array of strings (one row of the csv file)
       csv << [name, purchased]
     end
   end
